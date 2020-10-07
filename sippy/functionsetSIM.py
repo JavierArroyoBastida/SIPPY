@@ -54,7 +54,7 @@ def Vn_mat(y,yest):
     y = y.flatten()    
     yest = yest.flatten()
     eps = y - yest
-    Vn = (eps@eps)/(max(y.shape))   # @ is dot
+    Vn = np.dot(eps,eps)/(max(y.shape))   # @ is dot
     return Vn
     
 

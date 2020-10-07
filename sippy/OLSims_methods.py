@@ -7,7 +7,6 @@ Created on Thu Oct 12 2017
 from __future__ import absolute_import, division, print_function
 
 import sys
-from builtins import object
 
 import scipy as sc
 from numpy.linalg import pinv  
@@ -111,7 +110,7 @@ def OLSims(y, u, f, weights='N4SID', threshold=0.1, max_order=np.NaN, fixed_orde
         if A_stability == True:
             M, residuals[0:n, :], useless = forcing_A_stability(M, n, Ob, l, X_fd, N, u, f)
         A, B, C, D = extracting_matrices(M, n)
-        Covariances = old_div(np.dot(residuals, residuals.T), (N - 1))
+        Covariances = np.dot(residuals, residuals.T)/(N - 1)
         Q = Covariances[0:n, 0:n]
         R = Covariances[n::, n::]
         S = Covariances[0:n, n::]
@@ -121,13 +120,13 @@ def OLSims(y, u, f, weights='N4SID', threshold=0.1, max_order=np.NaN, fixed_orde
         
         K, K_calculated = K_calc(A, C, Q, R, S)
         for j in range(m):
-            B[:, j] = old_div(B[:, j], Ustd[j])
-            D[:, j] = old_div(D[:, j], Ustd[j])
+            B[:, j] = B[:, j]/Ustd[j]
+            D[:, j] = D[:, j]/Ustd[j]
         for j in range(l):
             C[j, :] = C[j, :] * Ystd[j]
             D[j, :] = D[j, :] * Ystd[j]
             if K_calculated == True:
-                K[:, j] = old_div(K[:, j], Ystd[j])
+                K[:, j] = K[:, j]/Ystd[j]
         return A, B, C, D, Vn, Q, R, S, K
 
 

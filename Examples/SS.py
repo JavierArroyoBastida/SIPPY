@@ -12,8 +12,6 @@ that the package slycot is not well-installed.
 """
 from __future__ import division
 
-from past.utils import old_div
-
 # Checking path to access other files
 try:
     from sippy import *
@@ -35,7 +33,7 @@ C = np.array([[0.7, 1.]])
 D = np.array([[0.0]])
 
 tfin = 500
-npts = int(old_div(tfin, ts)) + 1
+npts = int(tfin/ts) + 1
 Time = np.linspace(0, tfin, npts)
 
 # Input sequence

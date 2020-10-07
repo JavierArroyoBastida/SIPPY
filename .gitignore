@@ -122,3 +122,6 @@ simulator.sublime-project
 
 # QQmlEngine QML Cache
 *.qmlc
+.project
+.pydevproject
+.settings/org.eclipse.core.resources.prefs
